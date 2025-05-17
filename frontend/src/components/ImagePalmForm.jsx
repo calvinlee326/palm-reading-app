@@ -1,8 +1,11 @@
 'use client'
 import { useState } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 import imageCompression from 'browser-image-compression'
 
+
 export default function ImagePalmForm() {
+  const { language } = useLanguage()
   const [imageFile, setImageFile] = useState(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [result, setResult] = useState('')
@@ -50,7 +53,7 @@ export default function ImagePalmForm() {
       const res = await fetch('http://localhost:8000/api/analyzePalmImage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image_base64: base64 })
+        body: JSON.stringify({ image_base64: base64 , language: language})
       })
 
       const data = await res.json()

@@ -1,7 +1,10 @@
 'use client'
 import { useState } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
+
 
 export default function PalmForm() {
+  const { language } = useLanguage()
   const [lifeLine, setLifeLine] = useState('')
   const [heartLine, setHeartLine] = useState('')
   const [headLine, setHeadLine] = useState('')
@@ -28,7 +31,7 @@ export default function PalmForm() {
           life_line: lifeLine === 'custom' ? customLifeLine : lifeLine,
           heart_line: heartLine === 'custom' ? customHeartLine : heartLine,
           head_line: headLine === 'custom' ? customHeadLine : headLine,
-          language: 'en'
+          language: language
         })
       })
 
