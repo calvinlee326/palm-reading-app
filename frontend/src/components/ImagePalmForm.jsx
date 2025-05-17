@@ -58,6 +58,18 @@ export default function ImagePalmForm() {
 
       const data = await res.json()
       setResult(data.result || data.error)
+      if (data.result) {
+        const newEntry = {
+        result: data.result,
+        previewUrl: previewUrl,
+        timestamp: Date.now()
+      }
+
+        const existing = JSON.parse(localStorage.getItem('palm-history') || '[]')
+        const updated = [newEntry, ...existing.slice(0, 9)] // max 10 entries
+        localStorage.setItem('palm-history', JSON.stringify(updated))
+    }
+
     } catch (err) {
       setResult('Failed to analyze image.')
     } finally {

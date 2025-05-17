@@ -71,16 +71,21 @@ Keep the tone professional like a fortune teller.
 """
 
     try:
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "user", "content": [
-                    {"type": "text", "text": prompt},
-                    {"type": "image_url", "image_url": {"url": image_base64}}
-                ]}
+        response = client.responses.create(
+            model="gpt-4.1",
+            input=[
+                {
+                    "role": "user",
+                    "content": [
+                        { "type": "input_text", "text": prompt },
+                        {
+                            "type": "input_image",
+                            "image_url": image_base64 if image_base64.startswith('data:image') else f"data:image/jpeg;base64,{image_base64}",
+                        },
+                    ],
+                }
             ],
-            temperature=0.8,
         )
-        return {"result": response.choices[0].message.content}
+        return {"result": response.output_text}
     except Exception as e:
         return {"error": str(e)}
