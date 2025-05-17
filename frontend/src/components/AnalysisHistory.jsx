@@ -3,10 +3,18 @@ import { useEffect, useState } from 'react'
 
 export default function AnalysisHistory() {
   const [history, setHistory] = useState([])
+  const [expandedItems, setExpandedItems] = useState({})
 
   useEffect(() => {
     const saved = localStorage.getItem('palm-history')
-    if (saved) setHistory(JSON.parse(saved))
+    if (saved) {
+      // 過濾掉 previewUrl，只保留文字結果
+      const parsedHistory = JSON.parse(saved).map(item => ({
+        timestamp: item.timestamp,
+        result: item.result
+      }))
+      setHistory(parsedHistory)
+    }
   }, [])
 
   const handleDelete = (index) => {
@@ -14,6 +22,18 @@ export default function AnalysisHistory() {
     updated.splice(index, 1)
     setHistory(updated)
     localStorage.setItem('palm-history', JSON.stringify(updated))
+  }
+
+  const toggleExpand = (index) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }))
+  }
+
+  const truncateText = (text, maxLength = 100) => {
+    if (text.length <= maxLength) return text
+    return text.slice(0, maxLength) + '...'
   }
 
   if (history.length === 0) return null
@@ -27,19 +47,22 @@ export default function AnalysisHistory() {
             <p className="text-sm text-gray-600 mb-2">
               🕒 {new Date(item.timestamp).toLocaleString()}
             </p>
-            {item.previewUrl && (
-              <img
-                src={item.previewUrl}
-                alt="Palm Preview"
-                className="w-full max-h-48 object-contain rounded border mb-2"
-              />
-            )}
-            <p className="whitespace-pre-line text-sm text-gray-800 line-clamp-5">
-              {item.result.slice(0, 300)}...
-            </p>
+            <div className="relative">
+              <p className="whitespace-pre-line text-sm text-gray-800">
+                {expandedItems[index] ? item.result : truncateText(item.result)}
+              </p>
+              {item.result.length > 100 && (
+                <button
+                  onClick={() => toggleExpand(index)}
+                  className="text-blue-500 hover:text-blue-700 text-sm mt-2"
+                >
+                  {expandedItems[index] ? 'less...' : 'more...'}
+                </button>
+              )}
+            </div>
             <button
               onClick={() => handleDelete(index)}
-              className="text-sm text-red-500 mt-2 hover:underline"
+              className="text-sm text-red-500 mt-2 hover:underline ml-2"
             >
               Delete
             </button>
