@@ -1,6 +1,6 @@
 # ✋ Palm Analysis App 🌟
 
-**Palm Analysis App** is an AI-powered palm reading web application that provides entertaining and insightful personality, love, and fortune analysis by interpreting palm lines. Built with FastAPI + Next.js, and powered by OpenAI's `gpt-4o` multimodal model, this app is mobile-first and easy to deploy.
+**Palm Analysis App** is an AI-powered palm reading web application that provides entertaining and insightful personality, love, and fortune analysis by interpreting palm lines. Built with FastAPI + Next.js, and powered by OpenAI's `gpt-4.1` multimodal model, this app is mobile-first and easy to deploy.
 
 ---
 
@@ -36,7 +36,7 @@
 |-------------|------------------------|
 | Frontend    | Next.js 15 (App Router), Tailwind CSS |
 | Backend     | FastAPI + Python 3.12  |
-| AI API      | OpenAI GPT-4o          |
+| AI API      | OpenAI GPT-4.1          |
 | Env/Secrets | dotenv (.env)          |
 | Hosting     | Local (dev), Vercel/Render (optional) |
 | Auth (planned) | Google OAuth (TBD)  |
