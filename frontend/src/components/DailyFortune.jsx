@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { endpoints } from '@/config/api'
 
 export default function DailyFortune() {
   const [fortune, setFortune] = useState('')
@@ -33,7 +34,7 @@ export default function DailyFortune() {
       return
     }
 
-    fetch(`http://localhost:8000/api/dailyFortune?birthday=${birthday}`)
+    fetch(`${endpoints.dailyFortune}?birthday=${birthday}`)
       .then(res => res.json())
       .then(data => {
         if (data.fortune) {

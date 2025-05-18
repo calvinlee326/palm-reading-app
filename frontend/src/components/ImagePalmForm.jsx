@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import imageCompression from 'browser-image-compression'
+import { endpoints } from '@/config/api'
 
 
 export default function ImagePalmForm() {
@@ -50,7 +51,7 @@ export default function ImagePalmForm() {
     try {
       const base64 = await convertToBase64(imageFile)
 
-      const res = await fetch('http://localhost:8000/api/analyzePalmImage', {
+      const res = await fetch(endpoints.analyzePalmImage, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_base64: base64 , language: language})

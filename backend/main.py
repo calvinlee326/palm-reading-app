@@ -99,7 +99,7 @@ async def daily_fortune(birthday: str = Query(..., example="1998-01-10")):
         key = f"{birthday}-{today}"
 
         prompt = f"""
-You are a fortune teller. Based on the user's birthday ({birthday}) and today's date ({today}), generate one accurate and daily fortune(e.g.: In relationships, it's important to honor your commitments and maintain emotional stability. Don’t let neglect or lack of communication destroy the mutual understanding you once had. Doing some bedside yoga in the morning can help stabilize your emotions for the day and bring a lasting sense of calm and contentment. Financially, things are looking good — being a bit more bold and open in your investments could lead to significant gains.). Be brief, witty, and include an emoji. Use English.
+You are a fortune teller. Based on the user's birthday ({birthday}) and today's date ({today}), generate one accurate and daily fortune(e.g.: In relationships, it's important to honor your commitments and maintain emotional stability. Don't let neglect or lack of communication destroy the mutual understanding you once had. Doing some bedside yoga in the morning can help stabilize your emotions for the day and bring a lasting sense of calm and contentment. Financially, things are looking good — being a bit more bold and open in your investments could lead to significant gains.). Be brief, witty, and include an emoji. Use English.
 """
 
         response = client.chat.completions.create(
@@ -112,3 +112,8 @@ You are a fortune teller. Based on the user's birthday ({birthday}) and today's 
         return {"fortune": response.choices[0].message.content}
     except Exception as e:
         return {"error": str(e)}    
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+    

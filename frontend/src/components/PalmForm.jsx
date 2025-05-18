@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { endpoints } from '@/config/api'
 
 
 export default function PalmForm() {
@@ -24,7 +25,7 @@ export default function PalmForm() {
     setResult('')
 
     try {
-      const res = await fetch('http://localhost:8000/api/analyzePalm', {
+      const res = await fetch(endpoints.analyzePalm, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
