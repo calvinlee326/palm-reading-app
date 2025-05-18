@@ -2,6 +2,8 @@
 
 **Palm Analysis App** is an AI-powered palm reading web application that provides entertaining and insightful personality, love, and fortune analysis by interpreting palm lines. Built with FastAPI + Next.js, and powered by OpenAI's `gpt-4.1` multimodal model, this app is mobile-first and easy to deploy.
 
+🌐 **Live Demo**: [palm-reading-app-iota.vercel.app](https://palm-reading-app-iota.vercel.app)
+
 ---
 
 ## 🧠 Features
