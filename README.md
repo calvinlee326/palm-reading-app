@@ -24,7 +24,7 @@
    - Supports Traditional Chinese / Simplified Chinese / English  
    - Emojis and a playful astrology-style tone included  
 
-3. **🔮 Daily Horoscope Generator**  
+3. **🔮 Daily Horoscope Generator(Building...)**  
    - Input your birthdate to receive a fun, humorous daily message  
    - Built for casual, friendly vibes
 
