@@ -1,8 +1,9 @@
-from fastapi import FastAPI, UploadFile, File, Request # type: ignore
+from fastapi import FastAPI, UploadFile, File, Request, Query # type: ignore
 from pydantic import BaseModel # type: ignore
 from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from openai import OpenAI # type: ignore
 from dotenv import load_dotenv # type: ignore
+from datetime import datetime
 import os, base64
 
 load_dotenv()
@@ -89,3 +90,25 @@ Keep the tone professional like a fortune teller.
         return {"result": response.output_text}
     except Exception as e:
         return {"error": str(e)}
+    
+
+@app.get("/api/dailyFortune")
+async def daily_fortune(birthday: str = Query(..., example="1998-01-10")):
+    try:
+        today = datetime.now().strftime("%Y-%m-%d")
+        key = f"{birthday}-{today}"
+
+        prompt = f"""
+You are a fortune teller. Based on the user's birthday ({birthday}) and today's date ({today}), generate one accurate and daily fortune(e.g.: In relationships, it's important to honor your commitments and maintain emotional stability. Don’t let neglect or lack of communication destroy the mutual understanding you once had. Doing some bedside yoga in the morning can help stabilize your emotions for the day and bring a lasting sense of calm and contentment. Financially, things are looking good — being a bit more bold and open in your investments could lead to significant gains.). Be brief, witty, and include an emoji. Use English.
+"""
+
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.8,
+            max_tokens=60
+        )
+
+        return {"fortune": response.choices[0].message.content}
+    except Exception as e:
+        return {"error": str(e)}    
