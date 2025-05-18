@@ -40,3 +40,23 @@
 | Env/Secrets | dotenv (.env)          |
 | Hosting     | Local (dev), Vercel/Render (optional) |
 | Auth (planned) | Google OAuth (TBD)  |
+
+---
+
+## 🏗️ System Architecture
+
+```
+[ User Phone/PC ]
+       ↓
+   vercel.app    ← Frontend (Next.js)
+       ↓ API Request
+    fly.io       ← Backend (FastAPI)
+       ↓
+  GPT-4o API    ← OpenAI Vision API
+```
+
+The system follows a modern cloud-native architecture:
+- Frontend is hosted on Vercel for optimal global performance
+- Backend runs on fly.io for reliable API processing
+- Seamless integration with OpenAI's GPT-4o Vision API
+- Mobile-first responsive design for both phone and PC users
